@@ -78,12 +78,15 @@ router.post("/admin/articles/update", (req, res) => {
     var title = req.body.title;
     var body = req.body.body;
     var id = req.body.id;
+    var category = req.body.category;
 
-    Article.update({title: title, slug: slugify(title), body: body},{
+    Article.update({title: title, slug: slugify(title), body: body, categoryId: category},{
         where: {
             id: id
         }
     }).then(() => {
+        res.redirect("/admin/articles")
+    }).catch(err => {
         res.redirect("/admin/articles")
     })
 
